@@ -1,0 +1,54 @@
+unit getsetfiledate;
+
+interface
+
+uses
+  Windows, Messages, SysUtils, Classes, Graphics, Controls, Forms, Dialogs,
+  StdCtrls, FileCtrl;
+
+type
+  TForm1 = class(TForm)
+    Label1: TLabel;
+    Label2: TLabel;
+    Label3: TLabel;
+    Label4: TLabel;
+    Edit1: TEdit;
+    Label5: TLabel;
+    Label6: TLabel;
+    Button1: TButton;
+    procedure FormShow(Sender: TObject);
+    procedure Button1Click(Sender: TObject);
+  private
+    { Private declarations }
+  public
+    { Public declarations }
+  end;
+
+var
+  Form1: TForm1;
+
+implementation
+
+{$R *.DFM}
+
+procedure TForm1.Button1Click(Sender: TObject);
+VAR
+ filehandle : Integer;
+begin
+ label3.Caption := Edit1.Text;
+ FileSetDate(filehandle,DateTimeToFileDate(StrToDateTime(label3.caption)));
+ label2.caption := DateTimeToStr(FileDateToDateTime(filegetdate(filehandle)));
+end;
+
+procedure TForm1.FormShow(Sender: TObject);
+VAR
+ filehandle : Integer;
+
+begin
+  FileHandle := FileOpen('C:\Users\tim_r\test.txt', fmOpenWrite or fmShareDenyNone);
+  label1.caption := DateTimeToStr(FileDateToDateTime(filegetdate(filehandle)));
+ // FileSetDate(filehandle,DateTimeToFileDate(StrToDateTime(label3.caption)));
+ // label2.caption := DateTimeToStr(FileDateToDateTime(filegetdate(filehandle)));
+end;
+
+end.
